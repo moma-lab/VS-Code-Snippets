@@ -74,7 +74,7 @@ __Explanation:__
 
 ### Real World Example #1: console.log
 
-Custom code snippet to log to the console in JavaScript/TypeScript (console.log), saved as file `console log.code-snippets`. `$1` and `$2` are tab marks.
+> Custom code snippet to log to the console in JavaScript/TypeScript (console.log), saved as global snippet file `console log.code-snippets`. `$1` and `$2` are jump marks for tab stops.
 
 ```json
 {
@@ -93,7 +93,7 @@ __Usage:__
 
 ### Real World Example #2: made by console info
 
-Custom code snippet to create my created by credentials in JavaScript/TypeScript, saved as file `credentials.code-snippets`.
+> Custom code snippet to create my created by credentials in JavaScript/TypeScript, saved as global snippet file `credentials.code-snippets`.
 
 ```json
 {

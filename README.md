@@ -146,4 +146,4 @@ __Usage:__
 
 ## License
 
-Published under the [MIT Licence](LICENSE.md).
+Published under the [MIT Licence](LICENSE).

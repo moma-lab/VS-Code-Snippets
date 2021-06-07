@@ -4,41 +4,63 @@
 [![MIT license](https://img.shields.io/badge/license-MIT-brightgreen)](https://opensource.org/licenses/MIT)
 
 
->  Defining code snippets is a simple way to speed up writing recurring code passages. VS Code therefor provides the possibility to create custom "shortcut commands". Once typed in they trigger the display of a predefined code snippet via IntelliSense. As a modern code editor a lot of the VS Code options are configured in JSON files. Custom code snippets are handled the same way: you create a JSON file (will be generated for you) and add your template - and that's basically all it takes.
+>  With "*snippets*" Visual Studio Code provides the possibility of pre-defining recurring code blocks that are accessible via custom defined trigger commands. Once you type in such a command the display of the corresponding code snippet via [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) is triggered. This is a simple and efficient way to speed up the overall code writing process. 
+>
+> This tutorial aims to give a brief overview on how to create, write and include such custom code snippets.
 
-## General
+## General Information
 
-* VS Code snippets are defined as ***JSON objects***
+### Structure/Design
 
-  * support C-style comments,
-  * can define an *unlimited number* of snippets,
-  * support most TextMate syntax for dynamic behavior,
-  * intelligently format whitespace based on the insertion context and
-  * allow easy multiline editing
+VS Code snippets have to be defined as ***[JSON objects](https://www.w3schools.com/Js/js_json_objects.asp)***. In general they
 
-* Snippets scope & file extensions:
+* support C-style comments,
+* can define an *unlimited number* of snippets,
+* support most [TextMate](https://en.wikipedia.org/wiki/TextMate) syntax for dynamic behavior,
+* intelligently format whitespace based on the insertion context,
+* support different scoping methods,
+* perform 'Substring matching' on trigger words (e.g. typing "fc" could match "for-const") and
+* allow easy multiline editing (via variable tabstops).
 
-  * every snippet is scoped to one, several, or all ("global") programming languages based on whether it is defined in
+### Storage location (Mac)
 
-    1. a **language** snippet file `.json` (e.g. \<language\>.json) or
-    2. a **global** snippets file (JSON with file suffix `.code-snippets`, e.g. \<filename\>.code-snippets)
+Custom created snippets are stored in:
 
-* snippet storage location (Mac):<br />
-  `~/Library/Application\ Support/Code/User/snippets/` or<br />
-  `/Users/{username}/Library/Application\ Support/Code/User/snippets/`
+> * `~/Library/Application\ Support/Code/User/snippets/` or
+> * `/Users/{username}/Library/Application\ Support/Code/User/snippets/`.
 
-* To create a custom snippet simply do the following steps:
+### Scope & file extensions
 
-  * open `Code > Preferences > User Snippets` (Mac) or<br />
-    `File > Preferences > User Snippets` (Win/Linux)
+The availability of a snippet is scoped to *one, several, or all ("global")* programming languages based on whether it is defined in:
 
-  * select the programming language (by [language identifier](https://code.visualstudio.com/docs/languages/identifiers)) for which the snippets should appear, or the **New Global Snippets file ...** option if they should appear for *all* languages.
+> * a **language** specific snippet file (have a `.json` suffix, e.g. `<language>.json`) or
+> * a **global** snippets file (have a `.code-snippets` suffix, e.g. `<description>.code-snippets`)
+>   * *Exception*: if optional "scope" key is set to some specific languages inside a global snippet.
 
-  * ...
+*Global* snippets (JSON with file suffix .code-snippets) can also be scoped to *specific projects*. Project-folder snippets are created with the '**New Snippets file for ...**' option in the **Preferences**: **Configure User Snippets** dropdown menu and are located at the root of the project in a `.vscode` folder. Project snippet files are useful for *sharing snippets* with all users working in a project. Project-folder snippets are *similar to global snippets* and can be *scoped* to specific languages through the `scope` property.
 
-## Code Snippet Examples
+### Create a custom snippet
 
-### Basic Template
+(1.) ***Automatically***
+
+  * open `Code > Preferences > User Snippets` (Mac)
+
+  * select the programming language (by [language identifier](https://code.visualstudio.com/docs/languages/identifiers)) for which the snippet should appear, or the "**New Global Snippets file ...**" option if they should appear for *all* languages
+
+  * Write your snippet code inside the provided template, save it and you are ready to go.
+
+(2.) ***Manually***
+
+  * open a text editor (or use VS Code)
+  * create a JSON object and define your custom snippet (see Code Snippet Examples)
+  * save the file in `~/Library/Application\ Support/Code/User/snippets/` as:<br>
+
+    * `<language>.json`, where *\<language\>* denotes the specific programming language the snippet shall be available for
+    * `<description>.code-snippets`, which will make the snippet available in *all* programming languages (except the *scope* key is set to just some specific languages in the snippet object)
+
+## Snippet Syntax
+
+### Basic Snippet Template
 
 ```json
 {
@@ -58,19 +80,38 @@
 ```
 
 __Explanation:__
-> The above JSON object defines a new code snippet.
-> 
-> * "Snippet name" (=`object key`):<br />
->   *a string displayed via IntelliSense when typing in the snippet triggering command and no `description` is provided*
-> * `scope` (optional):<br />
->   * *a string of comma separated names of programming languages that are allowed to use the snippet (e.g. "scope": "javascript, typescript",)*
->   * *if not specified **general scope** is expected (meaning: snippet will be available in all programming languages)*
-> * `prefix` *(single string or array of string elements)*:<br />
->   * defines one or more trigger words/commands that display the snippet in IntelliSense. Substring matching is performed on 'prefixes', so in this case, "fc" could match "for-const".*
-> * `body`:<br />
->   *array of string elements building the actual output (the code to be inserted)*
-> * `description`:<br />
->   *info string that shows up under the command in intellisense*
+
+> The key-value pairs of the JSON object above define a new code snippet.
+ 
+* `object key` ("Snippet name"):
+  * *a string displayed via IntelliSense when typing in the snippet triggering command and no `description` is provided*
+ * `scope` (optional):
+   * *a string of comma separated names of programming languages that are allowed to use the snippet (e.g. "scope": "javascript, typescript",)*
+   * *if not specified **general scope** is expected (meaning: snippet will be available in all programming languages)*
+ * `prefix` *(single string or array of string elements)*:
+   * *defines one or more trigger words/commands that display the snippet in IntelliSense when typed in (Substring matching is performed on 'prefixes', so in this case, "fc" could match "for-const").*
+ * `body`:
+   * *array of string elements building the actual output (the code to be inserted)*
+ * `description`:
+   * *info string that shows up under the command in IntelliSense*
+
+### Special `body` Constructs
+
+> The `body` key of a snippet JSON object can use *special constructs* to *control cursors and the text being inserted*. The following constructs are supported:
+
+* [Tabstops](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_tabstops) (e.g. `$1`, `$2` and `$0`)
+* [Placeholders](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_placeholders) (e.g. `${1:foo}` or `${1:another ${2:placeholder}}`)
+* [Choice](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_choice) (e.g. `${1|one,two,three|}`)
+* [Variables](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables) (e.g. `$name` or `${name:default}`)
+* [Variable transforms](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variable-transforms)
+* [Placeholder-Transform](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_placeholdertransform)
+* [Transform Examples](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_transform-examples)
+
+### Assign Keybindings to Snippets
+
+> You can create custom [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings) to insert specific snippets. Open `keybindings.json` (**Preferences: Open Keyboard Shortcuts File**), which defines all your keybindings, and add a keybinding passing `"snippet"` as an extra argument (see example here: [Assign Keybindings to Snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_assign-keybindings-to-snippets)).
+
+## Code Snippet Examples
 
 ### Real World Example #1: console.log
 
@@ -91,7 +132,7 @@ __Usage:__
 * in your js/ts file just start typing one of the defined commands `cl` or `log`
 
 
-### Real World Example #2: made by console info
+### Real World Example #2: 'made by' console info
 
 > Custom code snippet to create my created by credentials in JavaScript/TypeScript, saved as global snippet file `credentials.code-snippets`.
 
@@ -114,9 +155,22 @@ __Usage:__
 __Usage:__
 * in your js/ts file just start typing one of the defined commands `credentials`, `moma`, `who`, `created`, `made` or `by`
 
-### Variables and Placeholders
+### Real World Example #3: FOR-Loop
 
-...
+> Below is an example of a for loop snippet (including tabstops and placeholders) for JavaScript:
+
+```JSON
+// in file 'Code/User/snippets/javascript.json'
+{
+  "For Loop": {
+    "prefix": ["for", "for-const"],
+    "body": ["for (const ${2:element} of ${1:array}) {", "\t$0", "}"],
+    "description": "A custom for loop."
+  }
+}
+```
+
+Additionally, the `body` of our example #3 has *three placeholders* (listed in order of traversal): `${1:array}`, `${2:element}`, and `$0`. You can quickly jump to the next placeholder with Tab, at which point you may edit the placeholder or jump again the next one. The string after the colon (if any) is the default text, for example element in `${2:element}`. Placeholder traversal order is ascending by number, starting from one; zero is an optional special case that always comes last, and exits snippet mode with the cursor at the specified position.
 
 ## References
 

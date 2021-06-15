@@ -9,7 +9,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -157,3 +158,6 @@ tmp/
 temp/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,node
+
+### Drop symbolic link to local snippets
+_snippets_Alias/

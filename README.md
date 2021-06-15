@@ -58,11 +58,23 @@ The availability of a snippet is scoped to *one, several, or all ("global")* pro
     * `<language>.json`, where *\<language\>* denotes the specific programming language the snippet shall be available for
     * `<description>.code-snippets`, which will make the snippet available in *all* programming languages (except the *scope* key is set to just some specific languages in the snippet object)
 
+### Snippets versus Emmet (WIP)
+
+> To modify/change built in code macros you can either edit the **emmet code file** (where all the macros are defined). BUT: you need to modify this file ***EVERY time you update VSC*** (just a copy would suffice because emmet is not updated frequently).
+> 
+> Much easier is it to instead write a snippet for the alternative syntax you want. Furthermore 'snippets' are part of the **VSC sync**!
+
+- https://emmet.io/
+- https://stackoverflow.com/questions/61181532/how-to-modify-emmets-tab-expansion-content
+- https://stackoverflow.com/questions/61016594/linktab-shortcut-emmet-on-vscode-how-can-i-get-the-type-to-be-included-in-t/61020188#61020188
+- Snippets: https://code.visualstudio.com/docs/editor/userdefinedsnippets
+- Emmet (customize): https://code.visualstudio.com/docs/editor/emmet#_using-custom-emmet-snippets
+
 ## Snippet Syntax
 
 ### Basic Snippet Template
 
-```json
+```JSON
 {
   "Snippet name": {
     "scope": "Comma, separated, list, of, all, applicable, programming, languages",
@@ -70,8 +82,8 @@ The availability of a snippet is scoped to *one, several, or all ("global")* pro
     "body": [
       "// The actual code snippet that shall be included.",
       "const firstSnippet = {",
-      "  messsage: \'Hello, world!\',",
-      "  origin: \'Custom VS Code Snippet\'",
+      "  messsage: \"Hello, world!\",",
+      "  origin: \"Custom VS Code Snippet\"",
       "};"
     ],
     "description": "Insert short code snippet description here."
@@ -122,7 +134,10 @@ __Explanation:__
   "Console log": {
     "scope": "javascript, typescript",
     "prefix": ["cl", "log"],
-    "body": ["console.log('$1');", "$2"],
+    "body": [
+      "console.log('$1');",
+      "$2"
+    ],
     "description": "Log to the console"
   }
 }
@@ -142,7 +157,7 @@ __Usage:__
     "scope": "javascript, typescript",
     "prefix": ["credentials", "moma", "who", "created", "made", "by"],
     "body": [
-      "// Print created by info to console.",
+      "// Print 'created by' info to console.",
       "console.info(",
       "  '\\n                    MADE WITH ♥ BY MOMA.DEV.LAB\\n                    https://github.com/moma-lab\\n\\n'",
       ");"
@@ -181,6 +196,8 @@ Additionally, the `body` of our example #3 has *three placeholders* (listed in o
   https://www.brandontillman.com/vscode-create-custom-snippets/
 
 ## Contributions welcome
+
+Created with ♥ by moma.dev.lab. Feel free to submit a pull request. Help is always appreciated.
 
 1. [Fork this repo](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo "Link to GitHub documentation on how to fork a repository")
    

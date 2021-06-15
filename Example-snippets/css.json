@@ -1,0 +1,58 @@
+{
+	// Place your snippets for css here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	// Sources:
+	// https://code.visualstudio.com/docs/editor/userdefinedsnippets
+	// https://code.visualstudio.com/docs/editor/emmet#_using-custom-emmet-snippets
+
+	// My basic CSS template.
+	"moma.dev.lab CSS template": {
+		"scope": "css, scss, less, sass",
+		"prefix": ["!", "template", "css"],
+		"body": [
+			"/**",
+			" *	Author:	 Alexander Moses (moma.dev.lab@gmail.com)",
+			" *	LICENSE: ${1:MIT}",
+			" *",
+			" *	${2:DESCRIPTION}",
+			" */",
+			"",
+			"/* Imports */",
+			"/* @import url('${3:https://subdomain.domain.com/uri}'); */",
+			"",
+			"/* Global CSS variables */",
+			":root {",
+			"  --UIColor: white;",
+			"}",
+			"",
+			"/* Clear all browser specific styling */",
+			"* {",
+			"  margin: 0;",
+			"  padding: 0;",
+			"  box-sizing: border-box;",
+			"}",
+			"",
+			"${4:body {",
+			"  height: 100vh;",
+			"  display: flex;",
+			"  align-items: center;",
+			"  justify-content: center;",
+			"  background-color: var(--UIColor);",
+			"}}",
+			"$0"
+		],
+		"description": "Insert moma's custom basic CSS template."
+	}
+}

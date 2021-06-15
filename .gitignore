@@ -160,4 +160,4 @@ temp/
 # End of https://www.toptal.com/developers/gitignore/api/macos,node
 
 ### Drop symbolic link to local snippets
-_snippets_Alias/
+_snippets_Alias

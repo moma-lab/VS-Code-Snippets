@@ -4,15 +4,15 @@
 [![MIT license](https://img.shields.io/badge/license-MIT-brightgreen)](https://opensource.org/licenses/MIT)
 
 
->  With "*snippets*" Visual Studio Code provides the possibility of pre-defining recurring code blocks that are accessible via custom defined trigger commands. Once you type in such a command the display of the corresponding code snippet via [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) is triggered. This is a simple and efficient way to speed up the overall code writing process. 
+>  With "*snippets*" [Visual Studio Code](https://code.visualstudio.com/) provides the possibility of pre-defining custom code blocks that are accessible via custom defined trigger commands. Once you type in a trigger command the built in [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) immediately provides a preview of the corresponding code snippet to insert. This is a simple and efficient way to speed up the overall code writing process. 
 >
-> This tutorial aims to give a brief overview on how to create, write and include such custom code snippets.
+> This tutorial aims to give a brief overview on how to create, write and include such custom code snippets into VSCode.
 
 ## General Information
 
 ### Structure/Design
 
-VS Code snippets have to be defined as ***[JSON objects](https://www.w3schools.com/Js/js_json_objects.asp)***. In general they
+VS Code snippets have to be defined as *[JSON objects](https://www.w3schools.com/Js/js_json_objects.asp)*. In general they
 
 * support C-style comments,
 * can define an *unlimited number* of snippets,
@@ -20,7 +20,7 @@ VS Code snippets have to be defined as ***[JSON objects](https://www.w3schools.c
 * intelligently format whitespace based on the insertion context,
 * support different scoping methods,
 * perform 'Substring matching' on trigger words (e.g. typing "fc" could match "for-const") and
-* allow easy multiline editing (via variable tabstops).
+* allow for easy multiline editing (via [tabstops](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_tabstops)).
 
 ### Storage location (Mac)
 
@@ -33,8 +33,8 @@ Custom created snippets are stored in:
 
 The availability of a snippet is scoped to *one, several, or all ("global")* programming languages based on whether it is defined in:
 
-> * a **language** specific snippet file (have a `.json` suffix, e.g. `<language>.json`) or
-> * a **global** snippets file (have a `.code-snippets` suffix, e.g. `<description>.code-snippets`)
+> * a **language** specific snippet file (has a `.json` suffix, e.g. `<language>.json`) or
+> * a **global** snippets file (has a `.code-snippets` suffix, e.g. `<description>.code-snippets`)
 >   * *Exception*: if optional "scope" key is set to some specific languages inside a global snippet.
 
 *Global* snippets (JSON with file suffix .code-snippets) can also be scoped to *specific projects*. Project-folder snippets are created with the '**New Snippets file for ...**' option in the **Preferences**: **Configure User Snippets** dropdown menu and are located at the root of the project in a `.vscode` folder. Project snippet files are useful for *sharing snippets* with all users working in a project. Project-folder snippets are *similar to global snippets* and can be *scoped* to specific languages through the `scope` property.
@@ -60,9 +60,11 @@ The availability of a snippet is scoped to *one, several, or all ("global")* pro
 
 ### Snippets versus Emmet (WIP)
 
-> To modify/change built in code macros you can either edit the **emmet code file** (where all the macros are defined). BUT: you need to modify this file ***EVERY time you update VSC*** (just a copy would suffice because emmet is not updated frequently).
+> To modify/change built in code macros you can either edit the **[emmet](https://code.visualstudio.com/docs/editor/emmet) code file** (where all the macros are defined).
 > 
-> Much easier is it to instead write a snippet for the alternative syntax you want. Furthermore 'snippets' are part of the **VSC sync**!
+> BUT: you need to modify this file ***EVERY single time you update VSCode*** (just a copy would suffice because emmet is not updated frequently).
+> 
+> It is much easier to instead write a snippet for the alternative syntax you want. Furthermore 'snippets' are part of the **VSC sync**!
 
 - https://emmet.io/
 - https://stackoverflow.com/questions/61181532/how-to-modify-emmets-tab-expansion-content
